@@ -9,9 +9,10 @@ const double COFFEE_PRICES[COFFEE_COUNT] = { 1.50, 2.50, 3.00 };
 const int PROGRESS_BAR_COLUMNS = 25;
 const int PROGRESS_BAR_COLUMN_TIME = 200;
 const int PASSWORD = 2024;
+const int MAX_CUP_COUNT = 700;
 int passwordAttempts = 3;
 double balance = 0;
-double cash = 0;
+double revenue = 0;
 int cupCount = 700;
 
 void printMenu();
@@ -27,8 +28,8 @@ void showManagePanel();
 void printManageMenu();
 void enterCashDeposit();
 void printDepositMenu();
-void printCashBalance();
-void getCash();
+void printRevenueBalance();
+void getRevenue();
 void printCupBalance();
 void addCups();
 
@@ -41,6 +42,12 @@ int main()
             cout << "ERROR. Sorry, but our coffee machine is blocked. We do our best to fix it quickly." << endl;
             printPrettyLine();
             return 1;
+        }
+        else if (!cupCount) {
+            printPrettyLine();
+            cout << "ERROR. Sorry, but not enough cups. We do our best to fix it quickly." << endl;
+            printPrettyLine();
+            return 2;
         }
         printMenu();
         cin >> choice;
@@ -124,7 +131,7 @@ void makeCoffee(int coffeeNumber)
     printProgressBar();
     cout << "Your fragrant coffee is ready!" << endl;
     balance -= COFFEE_PRICES[coffeeNumber];
-    cash += COFFEE_PRICES[coffeeNumber];
+    revenue += COFFEE_PRICES[coffeeNumber];
 }
 
 void printProgressBar()
@@ -194,10 +201,10 @@ void showManagePanel()
             break;
         }
         else if (choice == 1) {
-            printCashBalance();
+            printRevenueBalance();
         }
         else if (choice == 2) {
-            getCash();
+            getRevenue();
         }
         else if (choice == 3) {
             printCupBalance();
@@ -216,7 +223,7 @@ void printManageMenu()
     Sleep(1000);
     printPrettyLine();
     cout << "1: Cash balance" << endl;
-    cout << "2: Take cash" << endl;
+    cout << "2: Take revenue" << endl;
     cout << "3: Cup balance" << endl;
     cout << "4: Add cups" << endl;
     cout << "0: Exit" << endl;
@@ -226,12 +233,12 @@ void printManageMenu()
     cout << "Your choice: ";
 }
 
-void printCashBalance()
+void printRevenueBalance()
 {
     cout << "Function is in development" << endl;
 }
 
-void getCash()
+void getRevenue()
 {
     cout << "Function is in development" << endl;
 }
