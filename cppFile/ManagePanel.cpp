@@ -1,7 +1,8 @@
+#include <windows.h>
+#include "iostream"
+
 #include "../headerFile/ManagePanel.h"
 #include "../headerFile/CoffeeMachine.h"
-#include "iostream"
-#include <windows.h>
 
 using namespace std;
 

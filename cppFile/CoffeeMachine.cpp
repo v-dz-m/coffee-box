@@ -1,7 +1,8 @@
-#include "../headerFile/CoffeeMachine.h"
-#include "iostream"
-#include "../headerFile/ManagePanel.h"
 #include <windows.h>
+#include "iostream"
+
+#include "../headerFile/ManagePanel.h"
+#include "../headerFile/CoffeeMachine.h"
 
 using namespace std;
 
@@ -83,6 +84,7 @@ void CoffeeMachine::printPrettyLine() {
 void CoffeeMachine::printCoffeeWithPrices() {
     for (int i = 0; i < COFFEE_COUNT; i++) {
         double price = COFFEE_PRICES[i];
+
         cout << i + 1 << ": " << COFFEE_NAMES[i] << "\t\t";
         printValue(price);
         cout << endl;
