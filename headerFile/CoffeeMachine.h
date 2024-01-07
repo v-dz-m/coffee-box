@@ -40,5 +40,4 @@ private:
     void printDepositMenu();
 };
 
-
 #endif //COFFEE_BOX_COFFEEMACHINE_H

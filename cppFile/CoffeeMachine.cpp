@@ -21,6 +21,7 @@ CoffeeMachine::CoffeeMachine() :
 int CoffeeMachine::run() {
     while (true) {
         int choice = 0;
+
         if (!passwordAttempts) {
             printPrettyLine();
             cout << "ERROR. Sorry, but our coffee machine is blocked. We do our best to fix it quickly." << endl;
@@ -122,6 +123,7 @@ void CoffeeMachine::printProgressBar() {
 void CoffeeMachine::enterCashDeposit() {
     while (true) {
         int input = 0;
+
         printDepositMenu();
         cin >> input;
 

@@ -3,9 +3,9 @@
 
 class ManagePanel {
 public:
-    void enterManagePanel();
-
     ManagePanel();
+
+    void enterManagePanel();
 
 private:
     const int PASSWORD;
