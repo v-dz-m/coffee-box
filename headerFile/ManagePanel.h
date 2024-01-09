@@ -1,6 +1,8 @@
 #ifndef COFFEE_BOX_MANAGEPANEL_H
 #define COFFEE_BOX_MANAGEPANEL_H
 
+#include "CoffeeMachine.h"
+
 class ManagePanel {
 public:
     ManagePanel();
@@ -15,13 +17,15 @@ private:
 
     void printManageMenu();
 
-    void printRevenueBalance();
+    //void printRevenueBalance();
 
     void getRevenue();
 
     void printCupBalance();
 
     void addCups();
+
+    void printRevenueBalance();
 };
 
 #endif //COFFEE_BOX_MANAGEPANEL_H

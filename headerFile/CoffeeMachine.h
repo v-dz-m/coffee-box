@@ -2,6 +2,7 @@
 #define COFFEE_BOX_COFFEEMACHINE_H
 
 class CoffeeMachine {
+    friend class ManagePanel;
 public:
     CoffeeMachine();
 
@@ -17,8 +18,8 @@ private:
     const int PROGRESS_BAR_COLUMN_TIME;
     const int MAX_CUP_COUNT;
     int passwordAttempts;
-    double balance;
     double revenue;
+    double balance;
     int cupCount;
 
     void printMenu();

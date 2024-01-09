@@ -68,18 +68,18 @@ void ManagePanel::printManageMenu() {
     cout << "Your choice: ";
 }
 
-void ManagePanel::printRevenueBalance() {
-    cout << "Function is in development" << endl;
-}
-
 void ManagePanel::getRevenue() {
-    cout << "Function is in development" << endl;
+
 }
 
 void ManagePanel::printCupBalance() {
-    cout << "Function is in development" << endl;
+
 }
 
 void ManagePanel::addCups() {
-    cout << "Function is in development" << endl;
+
+}
+
+void ManagePanel::printRevenueBalance() {
+
 }
