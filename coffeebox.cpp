@@ -276,7 +276,7 @@ void getRevenue()
 
 void printCupBalance()
 {
-    cout << "Cups in machine is " << cupCount << endl;
+    cout << "Cups in machine are " << cupCount << endl;
 }
 
 void addCups()
