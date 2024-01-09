@@ -5,14 +5,14 @@ using namespace std;
 
 const int COFFEE_COUNT = 3;
 const char* COFFEE_NAMES[COFFEE_COUNT] = { "Espresso", "Cappuccino", "Latte" };
-const double COFFEE_PRICES[COFFEE_COUNT] = { 1.50, 1.80, 1.80 };
+const int COFFEE_PRICES[COFFEE_COUNT] = { 150, 180, 180 };
 const int PROGRESS_BAR_COLUMNS = 25;
 const int PROGRESS_BAR_COLUMN_TIME = 200;
 const int PASSWORD = 2024;
 const int MAX_CUP_COUNT = 700;
 int passwordAttempts = 3;
-double balance = 0;
-double revenue = 0;
+int balance = 0;
+int revenue = 0;
 int cupCount = 7;
 
 void printNoAttempts();
@@ -20,9 +20,9 @@ void printNoCups();
 void printMenu();
 void printPrettyLine();
 void printCoffeeWithPrices();
-void printValue(double value);
-int getRoubles(double value);
-int getKopecks(double value);
+void printValue(int value);
+int getRoubles(int value);
+int getKopecks(int value);
 void makeCoffee(int choice);
 void printProgressBar();
 void enterManagePanel();
@@ -115,26 +115,26 @@ void printPrettyLine()
 void printCoffeeWithPrices()
 {
     for (int i = 0; i < COFFEE_COUNT; i++) {
-        double price = COFFEE_PRICES[i];
+        int price = COFFEE_PRICES[i];
         cout << i + 1 << ": " << COFFEE_NAMES[i] << "\t\t";
         printValue(price);
         cout << endl;
     }
 }
 
-void printValue(double value)
+void printValue(int value)
 {
     cout << getRoubles(value) << " roubles " << getKopecks(value) << " kopecks";
 }
 
-int getRoubles(double value)
+int getRoubles(int value)
 {
-    return (int)value;
+    return value / 100;
 }
 
-int getKopecks(double value)
+int getKopecks(int value)
 {
-    return (value - getRoubles(value)) * 100;
+    return value - getRoubles(value) * 100;
 }
 
 void makeCoffee(int coffeeNumber)
@@ -173,7 +173,7 @@ void enterCashDeposit()
             continue;
         }
 
-        balance += (double)input / 100.0;
+        balance += input;
     }
 }
 
@@ -262,7 +262,7 @@ void getRevenue()
     int withdrawRevenue = revenue + balance;
     cout << "Total revenue ";
     printValue(withdrawRevenue);
-    cout << " will be withdrawn";
+    cout << " will be withdrawn...";
     cout << endl;
     Sleep(1000);
     revenue = 0;
