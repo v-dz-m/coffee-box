@@ -179,7 +179,9 @@ void enterCashDeposit()
 
 void printDepositMenu()
 {
-    cout << endl << "Only coins are accepted: 10, 20, 50 kopecks and 1, 2 roubles." << endl;
+    cout << endl << "Current balance: ";
+    printValue(balance);
+    cout << "." << endl << "Only coins are accepted: 10, 20, 50 kopecks and 1, 2 roubles." << endl;
     cout << "Please, enter coin value (1 rouble = 100, 2 roubles = 200)." << endl;
     cout << "If you finished cash deposit, just enter 0." << endl;
     cout << "Your coin value: ";
