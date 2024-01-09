@@ -5,7 +5,7 @@ using namespace std;
 
 const int COFFEE_COUNT = 3;
 const char* COFFEE_NAMES[COFFEE_COUNT] = { "Espresso", "Cappuccino", "Latte" };
-const double COFFEE_PRICES[COFFEE_COUNT] = { 1.50, 2.50, 3.00 };
+const double COFFEE_PRICES[COFFEE_COUNT] = { 1.50, 1.80, 1.80 };
 const int PROGRESS_BAR_COLUMNS = 25;
 const int PROGRESS_BAR_COLUMN_TIME = 200;
 const int PASSWORD = 2024;
@@ -13,8 +13,10 @@ const int MAX_CUP_COUNT = 700;
 int passwordAttempts = 3;
 double balance = 0;
 double revenue = 0;
-int cupCount = 700;
+int cupCount = 7;
 
+void printNoAttempts();
+void printNoCups();
 void printMenu();
 void printPrettyLine();
 void printCoffeeWithPrices();
@@ -38,15 +40,11 @@ int main()
     while (true) {
         int choice = 0;
         if (!passwordAttempts) {
-            printPrettyLine();
-            cout << "ERROR. Sorry, but our coffee machine is blocked. We do our best to fix it quickly." << endl;
-            printPrettyLine();
+            printNoAttempts();
             return 1;
         }
         else if (!cupCount) {
-            printPrettyLine();
-            cout << "ERROR. Sorry, but not enough cups. We do our best to fix it quickly." << endl;
-            printPrettyLine();
+            printNoCups();
             return 2;
         }
         printMenu();
@@ -74,6 +72,20 @@ int main()
     }
 
     return 0;
+}
+
+void printNoAttempts()
+{
+    printPrettyLine();
+    cout << "ERROR. Sorry, but our coffee machine is blocked. We do our best to fix it quickly." << endl;
+    printPrettyLine();
+}
+
+void printNoCups()
+{
+    printPrettyLine();
+    cout << "ERROR. Sorry, but not enough cups. We do our best to fix it quickly." << endl;
+    printPrettyLine();
 }
 
 void printMenu()
@@ -153,7 +165,7 @@ void enterCashDeposit()
         if (input == 0) {
             break;
         }
-        if (!(input == 1 || input == 2 || input == 5 || input == 10 || input == 20 || input == 50 || input == 100 || input == 200)) {
+        if (!(input == 10 || input == 20 || input == 50 || input == 100 || input == 200)) {
             printPrettyLine();
             cout << "ERROR. Your coin is not accepted. Please, try again." << endl;
             printPrettyLine();
@@ -166,7 +178,7 @@ void enterCashDeposit()
 
 void printDepositMenu()
 {
-    cout << endl << "Only coins are accepted: 1, 2, 5, 10, 20, 50 kopecks and 1, 2 roubles." << endl;
+    cout << endl << "Only coins are accepted: 10, 20, 50 kopecks and 1, 2 roubles." << endl;
     cout << "Please, enter coin value (1 rouble = 100, 2 roubles = 200)." << endl;
     cout << "If you finished cash deposit, just enter 0." << endl;
     cout << "Your coin value: ";
@@ -185,6 +197,7 @@ void enterManagePanel()
         cout << "Password is not correct. " << --passwordAttempts << " attempts left." << endl;
     }
     if (!passwordAttempts) {
+        cout << "PIN-code was entered 3 times incorrectly." << endl;
         return;
     }
     showManagePanel();
