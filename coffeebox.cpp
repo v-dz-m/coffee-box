@@ -95,6 +95,7 @@ void printMenu()
     cout << "COFFEE BOX" << endl;
     printPrettyLine();
     printCoffeeWithPrices();
+    cout << "7: Service" << endl;
     cout << "9: Cash deposit" << endl;
     cout << "0: Exit" << endl;
     printPrettyLine();
@@ -248,23 +249,34 @@ void printManageMenu()
 
 void printRevenueBalance()
 {
-    cout << "Revenue machine: ";
+    cout << "Machine revenue: ";
     printValue(revenue);
+    cout << endl;
+    cout << "Customer balance: ";
+    printValue(balance);
     cout << endl;
 }
 
 void getRevenue()
 {
-    cout << "Your revenue: ";
-    printValue(revenue);
+    int withdrawRevenue = revenue + balance;
+    cout << "Total revenue ";
+    printValue(withdrawRevenue);
+    cout << " will be withdrawn";
     cout << endl;
-
+    Sleep(1000);
     revenue = 0;
+    balance = 0;
+    cout << "The revenue was withdrawn. Machine revenue: ";
+    printValue(revenue);
+    cout << "." << endl << "Customer balance: ";
+    printValue(balance);
+    cout << "." << endl;
 }
 
 void printCupBalance()
 {
-   cout << "Cups in machine is " << cupCount << endl;
+    cout << "Cups in machine is " << cupCount << endl;
 }
 
 void addCups()
@@ -273,11 +285,11 @@ void addCups()
     cout << "Enter the number of cups to add: ";
     cin >> cupsToAdd;
 
-    if (cupsToAdd > 0 && cupCount + cupsToAdd <= MAX_CUP_COUNT){
+    if (cupsToAdd > 0 && cupCount + cupsToAdd <= MAX_CUP_COUNT) {
         cupCount += cupsToAdd;
-        cout << "Added " << cupsToAdd << " cups. The cup balance is nuw " << cupCount << "." << endl;
-    } else {
-        cout << "Invalid input or cup limit exceeded. "
-                "Number of cups to add must be a positive integer and shood not exceed the cup limit." << endl;
+        cout << "Added " << cupsToAdd << " cups. The cup balance is now " << cupCount << "." << endl;
+    }
+    else {
+        cout << "INVALID INPUT OR CUP LIMIT EXCEEDED. Number of cups to add must be a positive integer and should not exceed the cup limit of " << MAX_CUP_COUNT << "." << endl;
     }
 }
