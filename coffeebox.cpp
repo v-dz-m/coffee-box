@@ -248,20 +248,36 @@ void printManageMenu()
 
 void printRevenueBalance()
 {
-    cout << "Function is in development" << endl;
+    cout << "Revenue machine: ";
+    printValue(revenue);
+    cout << endl;
 }
 
 void getRevenue()
 {
-    cout << "Function is in development" << endl;
+    cout << "Your revenue: ";
+    printValue(revenue);
+    cout << endl;
+
+    revenue = 0;
 }
 
 void printCupBalance()
 {
-    cout << "Function is in development" << endl;
+   cout << "Cups in machine is " << cupCount << endl;
 }
 
 void addCups()
 {
-    cout << "Function is in development" << endl;
+    int cupsToAdd;
+    cout << "Enter the number of cups to add: ";
+    cin >> cupsToAdd;
+
+    if (cupsToAdd > 0 && cupCount + cupsToAdd <= MAX_CUP_COUNT){
+        cupCount += cupsToAdd;
+        cout << "Added " << cupsToAdd << " cups. The cup balance is nuw " << cupCount << "." << endl;
+    } else {
+        cout << "Invalid input or cup limit exceeded. "
+                "Number of cups to add must be a positive integer and shood not exceed the cup limit." << endl;
+    }
 }
