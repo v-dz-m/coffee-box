@@ -8,9 +8,11 @@ const char* COFFEE_NAMES[COFFEE_COUNT] = { "Espresso", "Cappuccino", "Latte" };
 const int COFFEE_PRICES[COFFEE_COUNT] = { 150, 180, 180 };
 const int PROGRESS_BAR_COLUMNS = 25;
 const int PROGRESS_BAR_COLUMN_TIME = 200;
+const int BEFORE_ACTION_TIME = 1000;
 const int PASSWORD = 2024;
 const int MAX_CUP_COUNT = 700;
-int passwordAttempts = 3;
+const int DEFAULT_PASSWORD_ATTEMPTS = 3;
+int passwordAttempts = DEFAULT_PASSWORD_ATTEMPTS;
 int balance = 0;
 int revenue = 0;
 int cupCount = 7;
@@ -25,14 +27,15 @@ int getRoubles(int value);
 int getKopecks(int value);
 void makeCoffee(int choice);
 void printProgressBar();
+bool isCoinCorrect(int inputValue);
 void enterManagePanel();
 void showManagePanel();
 void printManageMenu();
 void enterCashDeposit();
 void printDepositMenu();
 void printRevenueBalance();
-void getRevenue();
 void printCupBalance();
+void getRevenue();
 void addCups();
 
 int main()
@@ -49,21 +52,17 @@ int main()
         }
         printMenu();
         cin >> choice;
-        if (choice == 0) {
-            cout << "Have a nice day!" << endl;
-            break;
+        if (choice == 1) {
+            enterCashDeposit();
         }
-        else if (choice >= 1 && choice <= COFFEE_COUNT) {
-            if (balance < COFFEE_PRICES[choice - 1]) {
+        else if (choice >= 2 && choice < COFFEE_COUNT + 2) {
+            if (balance < COFFEE_PRICES[choice - 2]) {
                 cout << "NOT ENOUGH MONEY. Please, make a cash deposit and try again..." << endl;
                 continue;
             }
             makeCoffee(choice - 1);
         }
-        else if (choice == 9) {
-            enterCashDeposit();
-        }
-        else if (choice == 7) {
+        else if (choice == 5) {
             enterManagePanel();
         }
         else {
@@ -90,18 +89,14 @@ void printNoCups()
 
 void printMenu()
 {
-    Sleep(1000);
+    Sleep(BEFORE_ACTION_TIME);
     printPrettyLine();
-    cout << "COFFEE BOX" << endl;
-    printPrettyLine();
-    printCoffeeWithPrices();
-    cout << "7: Service" << endl;
-    cout << "9: Cash deposit" << endl;
-    cout << "0: Exit" << endl;
-    printPrettyLine();
-    cout << "Your balance: ";
+    cout << "Current balance: ";
     printValue(balance);
-    cout << "." << endl;
+    cout << endl << "1. Insert coin" << endl;
+    printCoffeeWithPrices();
+    cout << "5. Service" << endl;
+    printPrettyLine();
     cout << "Please, choose an operation." << endl;
     printPrettyLine();
     cout << "Your choice: ";
@@ -116,7 +111,7 @@ void printCoffeeWithPrices()
 {
     for (int i = 0; i < COFFEE_COUNT; i++) {
         int price = COFFEE_PRICES[i];
-        cout << i + 1 << ": " << COFFEE_NAMES[i] << "\t\t";
+        cout << i + 2 << ". " << COFFEE_NAMES[i] << " - ";
         printValue(price);
         cout << endl;
     }
@@ -124,7 +119,7 @@ void printCoffeeWithPrices()
 
 void printValue(int value)
 {
-    cout << getRoubles(value) << " roubles " << getKopecks(value) << " kopecks";
+    cout << getRoubles(value) << "." << getKopecks(value) << " BYN";
 }
 
 int getRoubles(int value)
@@ -166,7 +161,7 @@ void enterCashDeposit()
         if (input == 0) {
             break;
         }
-        if (!(input == 10 || input == 20 || input == 50 || input == 100 || input == 200)) {
+        if (!isCoinCorrect(input)) {
             printPrettyLine();
             cout << "ERROR. Your coin is not accepted. Please, try again." << endl;
             printPrettyLine();
@@ -187,20 +182,35 @@ void printDepositMenu()
     cout << "Your coin value: ";
 }
 
+bool isCoinCorrect(int inputValue)
+{
+    const int COIN_COUNT = 5;
+    const int COIN_VALUES[COIN_COUNT] = { 10, 20, 50, 100, 200 };
+    for (int i = 0; i < COIN_COUNT; i++) {
+        if (inputValue == COIN_VALUES[i]) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
 void enterManagePanel()
 {
     while (passwordAttempts) {
         int input = 0;
-        cout << "Please, enter the password: ";
+        cout << endl << "Enter a pin-code:" << endl;
         cin >> input;
         if (input == PASSWORD) {
-            passwordAttempts = 3;
+            passwordAttempts = DEFAULT_PASSWORD_ATTEMPTS;
             break;
         }
-        cout << "Password is not correct. " << --passwordAttempts << " attempts left." << endl;
+        cout << "Incorrect PIN-code!" << endl;
+        passwordAttempts--;
     }
     if (!passwordAttempts) {
-        cout << "PIN-code was entered 3 times incorrectly." << endl;
+        cout << endl << "The PIN-code was entered incorrectly 3 times.";
+        cout << endl << "The machine is blocked!" << endl;
         return;
     }
     showManagePanel();
@@ -212,20 +222,14 @@ void showManagePanel()
     while (true) {
         printManageMenu();
         cin >> choice;
-        if (choice == 0) {
+        if (choice == 3) {
             cout << "You leave manage menu..." << endl;
             break;
         }
         else if (choice == 1) {
-            printRevenueBalance();
-        }
-        else if (choice == 2) {
             getRevenue();
         }
-        else if (choice == 3) {
-            printCupBalance();
-        }
-        else if (choice == 4) {
+        else if (choice == 2) {
             addCups();
         }
         else {
@@ -236,13 +240,13 @@ void showManagePanel()
 
 void printManageMenu()
 {
-    Sleep(1000);
+    Sleep(BEFORE_ACTION_TIME);
     printPrettyLine();
-    cout << "1: Cash balance" << endl;
-    cout << "2: Take revenue" << endl;
-    cout << "3: Cup balance" << endl;
-    cout << "4: Add cups" << endl;
-    cout << "0: Exit" << endl;
+    printRevenueBalance();
+    printCupBalance();
+    cout << "1. Withdraw revenue" << endl;
+    cout << "2. Replenish the number of cups" << endl;
+    cout << "3. Return to the main menu" << endl;
     printPrettyLine();
     cout << "Please, choose an operation." << endl;
     printPrettyLine();
@@ -251,34 +255,23 @@ void printManageMenu()
 
 void printRevenueBalance()
 {
-    cout << "Machine revenue: ";
+    cout << "Current revenue: ";
     printValue(revenue);
     cout << endl;
-    cout << "Customer balance: ";
-    printValue(balance);
-    cout << endl;
-}
-
-void getRevenue()
-{
-    int withdrawRevenue = revenue + balance;
-    cout << "Total revenue ";
-    printValue(withdrawRevenue);
-    cout << " will be withdrawn...";
-    cout << endl;
-    Sleep(1000);
-    revenue = 0;
-    balance = 0;
-    cout << "The revenue was withdrawn. Machine revenue: ";
-    printValue(revenue);
-    cout << "." << endl << "Customer balance: ";
-    printValue(balance);
-    cout << "." << endl;
 }
 
 void printCupBalance()
 {
-    cout << "Cups in machine are " << cupCount << endl;
+    cout << "Current number of cups: " << cupCount << endl;
+}
+
+void getRevenue()
+{
+    Sleep(BEFORE_ACTION_TIME);
+    revenue = 0;
+    cout << "The revenue was withdrawn. Current revenue: ";
+    printValue(revenue);
+    cout << endl;
 }
 
 void addCups()
